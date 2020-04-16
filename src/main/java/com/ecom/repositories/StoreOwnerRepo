@@ -1,0 +1,13 @@
+package com.ecom.repositories;
+
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.ecom.model.StoreOwnerUser;
+
+
+@Repository
+public interface StoreOwnerRepo extends CrudRepository<StoreOwnerUser,String> {
+    public StoreOwnerUser findStoreOwnerUserByUsernameAndPassword(String username , String pass);
+}
