@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to ecommerce_application</title>
+</head>
+<body>
+<div>
+    <a href="/normal">Login</a>
+    <a href="/normal/register">Register</a>
+</div>
+<div style="text-align: center;">
+    <h1>ecommerce_application</h1>
+</div>
+
+<div class = "row">
+    <div class = "column" th:each = "row : ${rows}">
+        <div style="background-color:grey;
+             border-color: black;
+             color:white;
+             padding:20px;">
+            <h1 th:text = "${row.model}"></h1>
+            <span th:text = "${row.brand}"> </span>
+            <span th:text = "${row.store}"> </span>
+            <span th:text = "${row.price}"> </span>
+            <a th:href="@{/product/view(ID=${row.productID})}">view</a>
+        </div>
+        <br>
+    </div>
+</div>
+
+</body>
+</html>
