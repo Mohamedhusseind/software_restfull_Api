@@ -1,0 +1,65 @@
+package com.ecom.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import com.ecom.model.NormalUser;
+import com.ecom.repositories.NormalRepo;
+
+
+@RequestMapping("/normal")
+@Controller
+public class NormalController {
+    @Autowired
+    private NormalRepo normalRepo;
+
+
+    @RequestMapping("")
+    public String enter()
+    {
+        return "normalLogin";
+    }
+
+    @GetMapping("/register")
+    public String redirectRegister(){
+        return "register";
+    }
+
+
+    @PostMapping("/register")
+    public String addNewUser (
+            @RequestParam("Name") String name
+            , @RequestParam("Email") String email
+            , @RequestParam("Username") String username
+            , @RequestParam("password") String password) {
+    	
+        NormalUser n = new NormalUser(name , email , username , password);
+        if (normalRepo.existsById(username))
+            return "index";
+        normalRepo.save(n);
+        return "Saved";
+    }
+    @PostMapping("/login")
+    public String login(
+            @RequestParam("Username") String username,
+            @RequestParam("password") String password) {
+        NormalUser nu =normalRepo.findNormalUserByUsernameAndPassword(username, password);
+        if(nu != null)
+            return "HomePage";
+        else
+            return "normalLogin";
+    }
+    
+    @RequestMapping("/all")
+    public @ResponseBody Iterable<NormalUser> getAllUsers() {
+        // This returns a JSON or XML with the users
+        Iterable<NormalUser> iu = normalRepo.findAll();
+        return iu;
+    }
+}
