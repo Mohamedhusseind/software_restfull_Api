@@ -2,7 +2,6 @@ package com.ecom.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
 @Entity
 public class StoreOwnerUser extends User {
     public StoreOwnerUser()
