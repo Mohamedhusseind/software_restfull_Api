@@ -1,32 +1,18 @@
 package com.ecom.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
-
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	@Column(name = "name")
-	private String name;
-	
-	@Column(name = "username")
-	private String username;
-	
-	@Column(name = "email")
-	private String email;
-	
-	@Column(name = "password")
-	private String password;
 
-	public User() {
+    private String name;
+    private String Email;
+    @Id
+    private String username;
+    private String password;
+
+    public User() {
     }
 
     public User(String username, String password) {
@@ -36,52 +22,40 @@ public class User {
 
     public User(String name, String email, String username, String password) {
         this.name = name;
-        this.email = email;
+        Email = email;
         this.username = username;
         this.password = password;
     }
 
-	public long getId() {
-		return id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getEmail() {
+        return Email;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setEmail(String email) {
+        Email = email;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    private void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	
-	
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
