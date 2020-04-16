@@ -5,6 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 
 import com.ecom.model.StoreOwnerUser;
 import com.ecom.repositories.StoreOwnerRepo;
@@ -53,6 +58,7 @@ public class StoreOwnerController {
     }
     @RequestMapping("/all")
     public @ResponseBody Iterable<StoreOwnerUser> getAllUsers() {
+        // This returns a JSON or XML with the users
         Iterable<StoreOwnerUser> iu = storeOwnerRepo.findAll();
         return iu;
     }
