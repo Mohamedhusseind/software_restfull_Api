@@ -1,0 +1,59 @@
+package com.ecom.Controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.ecom.model.StoreOwnerUser;
+import com.ecom.repositories.StoreOwnerRepo;
+
+@RequestMapping("/storeowner")
+@Controller
+public class StoreOwnerController {
+
+    @Autowired
+    private StoreOwnerRepo storeOwnerRepo;
+
+    @GetMapping("/storeOwnerLogin")
+    public String Login()
+    {
+        return "storeOwnerLogin";
+    }
+
+    @PostMapping("/storeOwnerLogin")
+    public String login(
+            @RequestParam("Username") String username,
+            @RequestParam("password") String password , Model model) {
+        StoreOwnerUser na = storeOwnerRepo.findStoreOwnerUserByUsernameAndPassword(username, password);
+        if(na != null) {
+            return "StoreOwnerAfterLogin";
+        }
+        else
+            return "storeOwnerLogin";
+    }
+
+    @GetMapping("/register")
+    public String RedirectRegister() { return "storeOwnerRegister"; }
+
+    @PostMapping("/register")
+    public String addStoreOwner(
+            @RequestParam("Name") String name
+            , @RequestParam("Email") String email
+            , @RequestParam("Username") String username
+            , @RequestParam("password") String password) {
+        // @ResponseBody means the returned String is the response, not a view name
+        StoreOwnerUser n = new StoreOwnerUser(name , email , username , password);
+        if (storeOwnerRepo.existsById(username))
+            return "index";
+
+        storeOwnerRepo.save(n);
+        return "index";
+    }
+    @RequestMapping("/all")
+    public @ResponseBody Iterable<StoreOwnerUser> getAllUsers() {
+        Iterable<StoreOwnerUser> iu = storeOwnerRepo.findAll();
+        return iu;
+    }
+}
