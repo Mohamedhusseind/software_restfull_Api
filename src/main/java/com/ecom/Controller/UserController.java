@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.model.User;
@@ -36,10 +35,4 @@ public List<User> getAllUsers()
 		
 		return "Saved Succefully";
 	}
-	/*@PostMapping("/newuser")
-	public String addNewUser(@RequestBody User newUser)
-	{
-		userService.addNewUser(newUser);
-		return "Saved succesfully";
-	}*/
 }
