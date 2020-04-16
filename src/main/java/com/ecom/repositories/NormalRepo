@@ -1,0 +1,11 @@
+package com.ecom.repositories;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.ecom.model.NormalUser;
+
+@Repository
+public interface NormalRepo extends CrudRepository<NormalUser, String> {
+    public NormalUser findNormalUserByUsernameAndPassword(String Name, String Pass);
+}
