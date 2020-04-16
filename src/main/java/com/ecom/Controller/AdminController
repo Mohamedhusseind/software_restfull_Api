@@ -1,0 +1,59 @@
+package com.ecom.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import com.ecom.model.AdminUser;
+import com.ecom.repositories.AdminRepo;
+
+@RequestMapping("/admin")
+@Controller
+public class AdminController {
+    @Autowired
+    private AdminRepo adminRepo;
+    
+    @GetMapping("/adminLogin")
+    public String Login()
+    {
+        return "adminLogin";
+    }
+
+    @GetMapping("/register")
+    public String adminRegister()
+    {
+        return "adminRegister";
+    }
+
+    @RequestMapping("/register")
+    public String addAdmin(
+            @RequestParam("Name") String name
+            , @RequestParam("Email") String email
+            , @RequestParam("Username") String username
+            , @RequestParam("password") String password) 
+    {
+        // @ResponseBody means the returned String is the response
+        AdminUser n = new AdminUser(name , email , username , password);
+        if (adminRepo.existsById(username))
+            return "exist index";
+        adminRepo.save(n);
+        return "index";
+    }
+
+    @PostMapping("/adminLogin")
+    public String login(
+            @RequestParam("Username") String username,
+            @RequestParam("password") String password) {
+        AdminUser na = adminRepo.findAdminUserByUsernameAndPassword(username, password);
+        if(na != null)
+            return "AdminAfterLogin";
+        else
+            return "adminLogin";
+    }
+    @RequestMapping("/all")
+    public @ResponseBody Iterable<AdminUser> getAllUsers() {
+        // This returns a JSON or XML with the users
+        Iterable<AdminUser> iu = adminRepo.findAll();
+        return iu;
+    }
+}
