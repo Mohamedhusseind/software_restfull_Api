@@ -1,0 +1,12 @@
+package com.ecom.repositories;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.ecom.model.AdminUser;
+
+
+@Repository
+public interface AdminRepo extends CrudRepository<AdminUser, String> {
+    public AdminUser findAdminUserByUsernameAndPassword(String Name, String Password);
+}
