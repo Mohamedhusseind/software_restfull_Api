@@ -3,6 +3,12 @@ package com.ecom.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+
 
 import com.ecom.model.AdminUser;
 import com.ecom.repositories.AdminRepo;
@@ -35,7 +41,7 @@ public class AdminController {
         // @ResponseBody means the returned String is the response
         AdminUser n = new AdminUser(name , email , username , password);
         if (adminRepo.existsById(username))
-            return "exist index";
+            return "index";
         adminRepo.save(n);
         return "index";
     }
