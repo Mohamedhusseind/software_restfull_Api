@@ -56,10 +56,10 @@ public class NormalController {
             return "normalLogin";
     }
     
-    @RequestMapping("/all")
+   /* @RequestMapping("/all")
     public @ResponseBody Iterable<NormalUser> getAllUsers() {
         // This returns a JSON or XML with the users
         Iterable<NormalUser> iu = normalRepo.findAll();
         return iu;
-    }
+    }*/
 }
