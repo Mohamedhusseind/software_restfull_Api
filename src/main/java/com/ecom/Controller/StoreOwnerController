@@ -56,10 +56,10 @@ public class StoreOwnerController {
         storeOwnerRepo.save(n);
         return "index";
     }
-    @RequestMapping("/all")
+    /*@RequestMapping("/all")
     public @ResponseBody Iterable<StoreOwnerUser> getAllUsers() {
         // This returns a JSON or XML with the users
         Iterable<StoreOwnerUser> iu = storeOwnerRepo.findAll();
         return iu;
-    }
+    }*/
 }
