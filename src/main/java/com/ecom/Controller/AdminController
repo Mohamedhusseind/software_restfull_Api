@@ -1,7 +1,12 @@
 package com.ecom.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +16,22 @@ import org.springframework.web.bind.annotation.*;
 
 
 import com.ecom.model.AdminUser;
+import com.ecom.model.NormalUser;
+import com.ecom.model.User;
 import com.ecom.repositories.AdminRepo;
+import com.ecom.repositories.NormalRepo;
+import com.ecom.repositories.userRepository;
+import com.ecom.services.userServices;
+
 
 @RequestMapping("/admin")
 @Controller
+@Repository
 public class AdminController {
     @Autowired
     private AdminRepo adminRepo;
+    private userRepository userRepo;
+	private UserController user ;
     
     @GetMapping("/adminLogin")
     public String Login()
@@ -42,10 +56,11 @@ public class AdminController {
         AdminUser n = new AdminUser(name , email , username , password);
         if (adminRepo.existsById(username))
             return "index";
-        adminRepo.save(n);
+        else
+        	adminRepo.save(n);
+        	
         return "index";
     }
-
     @PostMapping("/adminLogin")
     public String login(
             @RequestParam("Username") String username,
@@ -56,10 +71,17 @@ public class AdminController {
         else
             return "adminLogin";
     }
-    @RequestMapping("/all")
+    
+    
+   /* @RequestMapping("/users")
+    public List<User> getAlUsers()
+	{
+    	return user.alluser;
+	}*/
+    /*@RequestMapping("/all")
     public @ResponseBody Iterable<AdminUser> getAllUsers() {
         // This returns a JSON or XML with the users
         Iterable<AdminUser> iu = adminRepo.findAll();
         return iu;
-    }
+    }*/
 }
